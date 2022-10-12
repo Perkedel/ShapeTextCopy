@@ -34,6 +34,7 @@ func refreshLook():
 			fillBottomLeftCorner()
 			pass
 		4:
+			fillBottomRightCorner()
 			pass
 		5:
 			fillTopLeftCorner()
@@ -329,26 +330,100 @@ func fillTriangleInverted():
 	pass
 
 func fillTopRightCorner():
-	var flipCount = sizeInt[1]
-	for i in sizeInt[1]:
-		for j in sizeInt[1]-flipCount:
+#	var flipCount = sizeInt[1]
+#	for i in sizeInt[1]:
+#		for j in sizeInt[1]-flipCount:
+#			addCharacter(' ')
+#			pass
+#
+#		var jj = flipCount
+#		while !(jj<= (2*flipCount-1)):
+#			addCharacter(character)
+#			jj+=1
+#			pass
+#
+#		for j in flipCount-1:
+#			addCharacter(character)
+#
+#		addCharacter('\n')
+#
+#		flipCount -= 1
+#		pass
+	
+	# https://www.geeksforgeeks.org/programs-printing-pyramid-patterns-c/
+	"""
+	// C++ code to demonstrate pattern printing
+	#include <iostream>
+	using namespace std;
+	 
+	// Function to demonstrate printing pattern
+	void pypart2(int n)
+	{
+		int i = n, j = 0, k = 0;
+		while (i > 0) {
+		   
+			  // for number of spaces
+			while (k < (n - i)) {
+				cout << "  ";
+				k++;
+			}
+	 
+			  // resetting k because we want to run k from
+			// beginning.
+			k = 0;
+			while (j < i) {
+				cout << "* ";
+				j++;
+			}
+		   
+			  // resetting k so as it can start from 0.
+			j = 0;
+			i--;
+			cout << endl;
+		}
+	}
+	 
+	// Driver Code
+	int main()
+	{
+		int n = 5;
+	   
+		  // Function Call
+		pypart2(n);
+		return 0;
+	}
+	"""
+	# Function to demonstrate printing pattern
+	var n:int = sizeInt[1]
+	var i:int = n
+	var j:int = 0
+	var k:int = 0
+	
+	while i > 0:
+		# for number of spaces
+		while k < (n - i): 
 			addCharacter(' ')
+			k+=1
+#			if k < n - 1:
+#				break
 			pass
 		
-		var jj = flipCount
-		while !(jj<= (2*flipCount-1)):
+		# resetting k because we want to run k from
+		# beginning.
+		k = 0;
+		while j < i: 
 			addCharacter(character)
-			jj+=1
-			pass
+			j+=1
+#			if j < i:
+#				break
 		
-		for j in flipCount-1:
-			addCharacter(character)
-		
+	   
+		# resetting k so as it can start from 0.
+		j = 0
+		i-=1
 		addCharacter('\n')
-		
-		flipCount -= 1
-		pass
-	pass
+#		if i > 0:
+#			break
 	pass
 
 func fillAccidentalSpotlight():
@@ -486,13 +561,57 @@ func fillBottomLeftCorner():
 	"""
 	# rows use sizeInt[1]
 	
-	for i in sizeInt[1]:
-		for j in i:
+	for i in range(0,sizeInt[1]):
+		for j in range(0,i+1):
 			addCharacter(character)
 			pass
 		addCharacter('\n')
 		pass
 	
+	pass
+
+func fillBottomRightCorner():
+	# https://www.geeksforgeeks.org/programs-printing-pyramid-patterns-c/
+	"""
+	// C++ code to demonstrate star pattern
+	#include <iostream>
+	using namespace std;
+	 
+	// Driver Code
+	int main()
+	{
+		int n = 5;
+	   
+		//looping rows
+		for(int i=n; i>0; i--)
+		{
+		  for(int j=0; j<=n; j++) //looping columns
+		  {
+			if (j>=i)
+			{
+			  cout<<"*";
+			}
+			else
+			{
+			  cout<<" ";
+			}
+		  }
+		  cout<<endl;
+		}
+		return 0;
+	}
+	"""
+	#n uses sizeInt[1]
+	
+	for i in range(sizeInt[1],0,-1):
+		for j in range(0,sizeInt[1]):
+			if (j>=i-1):
+				addCharacter(character)
+			else:
+				addCharacter(' ')
+			pass
+		addCharacter('\n')
+		pass
 	pass
 
 func fillTopLeftCorner():
@@ -611,7 +730,7 @@ func fillX():
 #				toFillBB += character
 				addCharacter(character)
 			else:
-				toFillBB += " "
+#				toFillBB += " "
 				addCharacter(" ")
 			pass
 		
@@ -662,6 +781,78 @@ func fillHelix():
 		pass
 	
 	pass
+
+# more misc codes
+"""
+https://www.programiz.com/cpp-programming/examples/pyramid-pattern
+Pascal Triangle
+		   1
+		 1   1
+	   1   2   1
+	 1   3   3    1
+   1  4    6   4   1
+ 1  5   10   10  5   1 
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int rows, coef = 1;
+
+	cout << "Enter number of rows: ";
+	cin >> rows;
+
+	for(int i = 0; i < rows; i++)
+	{
+		for(int space = 1; space <= rows-i; space++)
+			cout <<"  ";
+
+		for(int j = 0; j <= i; j++)
+		{
+			if (j == 0 || i == 0)
+				coef = 1;
+			else
+				coef = coef*(i-j+1)/j;
+
+			cout << coef << "   ";
+		}
+		cout << endl;
+	}
+
+	return 0;
+}
+
+Floyd Triangle
+1
+2 3
+4 5 6
+7 8 9 10
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int rows, number = 1;
+
+	cout << "Enter number of rows: ";
+	cin >> rows;
+
+	for(int i = 1; i <= rows; i++)
+	{
+		for(int j = 1; j <= i; ++j)
+		{
+			cout << number << " ";
+			++number;
+		}
+
+		cout << endl;
+	}
+
+	return 0;
+}
+"""
 
 """
 END SHAPE FILLERS
