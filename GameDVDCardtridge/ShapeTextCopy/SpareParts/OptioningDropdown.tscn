@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/fonts/Baked/Ubuntu-NF.tres" type="DynamicFont" id=1]
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptioningBase.tscn" type="PackedScene" id=2]
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptioningDropdown.gd" type="Script" id=3]
+
+[node name="OptioningDropdown" instance=ExtResource( 2 )]
+script = ExtResource( 3 )
+selecton = 0
+defaultSelecton = 0
+
+[node name="Label" parent="." index="0"]
+margin_left = 0.0
+margin_right = 195.0
+
+[node name="OptionButton" type="OptionButton" parent="." index="2"]
+margin_left = 199.0
+margin_right = 1920.0
+margin_bottom = 123.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 1 )
+text = "ﱢ Square"
+align = 2
+items = [ "ﱢ Square", null, false, 0, null, "卑 Triangle", null, false, 1, null, " Lozenge", null, false, 2, null, " Corner", null, false, 3, null, " Back Corner", null, false, 4, null, " Flip Corner", null, false, 5, null, " Flip Back Corner", null, false, 6, null, " Elipse", null, false, 7, null ]
+selected = 0
+
+[connection signal="item_selected" from="OptionButton" to="." method="_on_OptionButton_item_selected"]

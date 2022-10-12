@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/fonts/Baked/UbuntuMono-NF.tres" type="DynamicFont" id=1]
+
+[node name="TextToCopy" type="RichTextLabel"]
+margin_right = 860.0
+margin_bottom = 1080.0
+focus_mode = 2
+custom_fonts/mono_font = ExtResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[code]*****
+*****
+*****
+[/code]"
+text = "*****
+*****
+*****
+"
+scroll_active = false
+selection_enabled = true

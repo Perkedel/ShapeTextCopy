@@ -1,0 +1,114 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/ShaperTextCopy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/ShapeTextCopy.gd" type="Script" id=2]
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptioningTextInput.tscn" type="PackedScene" id=3]
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptioningNumber.tscn" type="PackedScene" id=4]
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptioningDropdown.tscn" type="PackedScene" id=5]
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptionHeadering.tscn" type="PackedScene" id=6]
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptionCopyrightText.tscn" type="PackedScene" id=7]
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptioningButton.tscn" type="PackedScene" id=8]
+
+[node name="ShapeTextCopy" type="Node"]
+script = ExtResource( 2 )
+
+[node name="UIBox" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Contains" type="HSplitContainer" parent="UIBox"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+split_offset = 860
+
+[node name="TextScroll" type="ScrollContainer" parent="UIBox/Contains"]
+margin_right = 860.0
+margin_bottom = 1080.0
+
+[node name="TextToCopy" parent="UIBox/Contains/TextScroll" instance=ExtResource( 1 )]
+unique_name_in_owner = true
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Paneling" type="Panel" parent="UIBox/Contains"]
+margin_left = 872.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UIBox/Contains/Paneling"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+scroll_horizontal_enabled = false
+
+[node name="Optioning" type="VBoxContainer" parent="UIBox/Contains/Paneling/ScrollContainer"]
+margin_right = 1048.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TitleHeader" parent="UIBox/Contains/Paneling/ScrollContainer/Optioning" instance=ExtResource( 6 )]
+unique_name_in_owner = true
+anchor_right = 0.0
+margin_right = 1048.0
+margin_bottom = 82.0
+title = "Shape Copy"
+
+[node name="SingleCharOption" parent="UIBox/Contains/Paneling/ScrollContainer/Optioning" instance=ExtResource( 3 )]
+unique_name_in_owner = true
+anchor_right = 0.0
+margin_top = 86.0
+margin_right = 1048.0
+margin_bottom = 129.0
+labelText = "Character"
+
+[node name="WidthOption" parent="UIBox/Contains/Paneling/ScrollContainer/Optioning" instance=ExtResource( 4 )]
+unique_name_in_owner = true
+anchor_right = 0.0
+margin_top = 133.0
+margin_right = 1048.0
+margin_bottom = 170.0
+labelText = "Width"
+value = 20
+defaultValue = 20
+
+[node name="HeightOption" parent="UIBox/Contains/Paneling/ScrollContainer/Optioning" instance=ExtResource( 4 )]
+unique_name_in_owner = true
+anchor_right = 0.0
+margin_top = 174.0
+margin_right = 1048.0
+margin_bottom = 211.0
+labelText = "Height"
+
+[node name="ShapeOption" parent="UIBox/Contains/Paneling/ScrollContainer/Optioning" instance=ExtResource( 5 )]
+unique_name_in_owner = true
+anchor_right = 0.0
+margin_top = 215.0
+margin_right = 1048.0
+margin_bottom = 258.0
+
+[node name="ButtonBoth" type="HBoxContainer" parent="UIBox/Contains/Paneling/ScrollContainer/Optioning"]
+margin_top = 262.0
+margin_right = 1048.0
+margin_bottom = 305.0
+
+[node name="ResetAllButton" parent="UIBox/Contains/Paneling/ScrollContainer/Optioning/ButtonBoth" instance=ExtResource( 8 )]
+unique_name_in_owner = true
+anchor_right = 0.0
+margin_right = 83.0
+margin_bottom = 43.0
+hint_tooltip = "Reset All Parameters"
+text = " "
+
+[node name="CopyrightOption" parent="UIBox/Contains/Paneling/ScrollContainer/Optioning" instance=ExtResource( 7 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 309.0
+margin_right = 1048.0
+margin_bottom = 1080.0
+
+[connection signal="hasChangedText" from="UIBox/Contains/Paneling/ScrollContainer/Optioning/SingleCharOption" to="." method="_on_SingleCharOption_hasChangedText"]
+[connection signal="hasChanged" from="UIBox/Contains/Paneling/ScrollContainer/Optioning/WidthOption" to="." method="_on_WidthOption_hasChanged"]
+[connection signal="hasChangedNumber" from="UIBox/Contains/Paneling/ScrollContainer/Optioning/WidthOption" to="." method="_on_WidthOption_hasChangedNumber"]
+[connection signal="hasChanged" from="UIBox/Contains/Paneling/ScrollContainer/Optioning/HeightOption" to="." method="_on_HeightOption_hasChanged"]
+[connection signal="hasChangedNumber" from="UIBox/Contains/Paneling/ScrollContainer/Optioning/HeightOption" to="." method="_on_HeightOption_hasChangedNumber"]
+[connection signal="hasChangedSelection" from="UIBox/Contains/Paneling/ScrollContainer/Optioning/ShapeOption" to="." method="_on_ShapeOption_hasChangedSelection"]

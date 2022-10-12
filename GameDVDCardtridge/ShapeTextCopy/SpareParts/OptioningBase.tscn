@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptioningLabel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptioningBase.gd" type="Script" id=2]
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptioningButton.tscn" type="PackedScene" id=3]
+
+[node name="OptioningBase" type="HBoxContainer"]
+anchor_right = 1.0
+margin_bottom = 123.0
+alignment = 2
+script = ExtResource( 2 )
+
+[node name="Label" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_left = 1725.0
+margin_right = 1920.0
+margin_bottom = 123.0
+size_flags_vertical = 7
+text = "Option Name"
+valign = 1
+
+[node name="ResetButton" parent="." instance=ExtResource( 3 )]
+visible = false
+anchor_right = 0.0
+margin_left = 1876.0
+margin_right = 1920.0
+margin_bottom = 123.0
+text = ""
+
+[connection signal="pressed" from="ResetButton" to="." method="_on_ResetButton_pressed"]
