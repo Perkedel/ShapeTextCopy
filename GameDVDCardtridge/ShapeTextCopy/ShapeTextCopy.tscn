@@ -31,6 +31,7 @@ custom_fonts/font = ExtResource( 9 )
 tab_align = 0
 
 [node name="Result" type="Tabs" parent="UIBox/Contains/TabContainer"]
+unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -48,6 +49,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Source Codes" type="Tabs" parent="UIBox/Contains/TabContainer"]
+unique_name_in_owner = true
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -129,6 +131,21 @@ margin_bottom = 43.0
 hint_tooltip = "Reset All Parameters"
 text = " "
 
+[node name="Separator" type="Control" parent="UIBox/Contains/Paneling/ScrollContainer/Optioning/ButtonBoth"]
+margin_left = 87.0
+margin_right = 902.0
+margin_bottom = 43.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CopyButton" parent="UIBox/Contains/Paneling/ScrollContainer/Optioning/ButtonBoth" instance=ExtResource( 8 )]
+unique_name_in_owner = true
+anchor_right = 0.0
+margin_left = 906.0
+margin_right = 1040.0
+margin_bottom = 43.0
+text = " COPY"
+
 [node name="CopyrightOption" parent="UIBox/Contains/Paneling/ScrollContainer/Optioning" instance=ExtResource( 7 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -154,4 +171,5 @@ text = " EXIT"
 [connection signal="hasChangedNumber" from="UIBox/Contains/Paneling/ScrollContainer/Optioning/HeightOption" to="." method="_on_HeightOption_hasChangedNumber"]
 [connection signal="hasChangedSelection" from="UIBox/Contains/Paneling/ScrollContainer/Optioning/ShapeOption" to="." method="_on_ShapeOption_hasChangedSelection"]
 [connection signal="pressed" from="UIBox/Contains/Paneling/ScrollContainer/Optioning/ButtonBoth/ResetAllButton" to="." method="_on_ResetAllButton_pressed"]
+[connection signal="pressed" from="UIBox/Contains/Paneling/ScrollContainer/Optioning/ButtonBoth/CopyButton" to="." method="_on_CopyButton_pressed"]
 [connection signal="pressed" from="UIBox/Contains/Paneling/ScrollContainer/Optioning/ButtonFate/QuitButton" to="." method="_on_QuitButton_pressed"]

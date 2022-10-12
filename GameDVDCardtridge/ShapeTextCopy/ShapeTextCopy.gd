@@ -3,6 +3,8 @@ extends Node
 export(String) var character:String = "*"
 export(Vector2) var size:Vector2 = Vector2(20,10)
 export(PoolIntArray) var sizeInt:PoolIntArray = [20,10]
+export(bool) var addSpace:bool = false;
+export(int) var chooseSkin = 0 # each shape may have various like a a, 1 2, etc.
 export(int,'Square', 'Triangle') var chooseShape = 0
 enum shapes {Square, Triangle}
 var toFillBB="[code]" + "***\n****" + "[/code]"
@@ -26,6 +28,7 @@ func refreshLook():
 		1:
 			fillTriangle()
 		2:
+			fillLozenge()
 			pass
 		3:
 			fillBottomLeftCorner()
@@ -35,16 +38,27 @@ func refreshLook():
 		5:
 			fillTopLeftCorner()
 			pass
+		6:
+			fillTopRightCorner()
+			pass
 		8:
 			fillX()
 		9:
 			fillHelix()
+		10:
+			fillTriangleInverted()
 		_:
 			fillSquare()
 			pass
 	toFillBB += "[/code]"
 	
 	$"%TextToCopy".bbcode_text = toFillBB
+	pass
+
+func addCharacter(with:String = '', andSpace:bool = false, manual:bool = false):
+	toFillBB += (with + (" " if (andSpace if manual else addSpace) else ""))
+	
+	#-> addCharacter(character) <-
 	pass
 
 func clearFillBB()->void:
@@ -80,15 +94,315 @@ func fillSquare():
 	# https://generalistprogrammer.com/godot/godot-for-loop-tutorial-definitive-guide-with-examples/
 	for n in sizeInt[1]:
 		for m in sizeInt[0]:
-			toFillBB += character
+			addCharacter(character)
 			pass
-		toFillBB +='\n'
+		addCharacter('\n')
 		pass
 	
 	
 	pass
 
+func arguTriangle(sizing:int):
+	var k = 0
+	for i in range(0,sizing+1):
+		for j in sizing-i:
+#			toFillBB += " "
+			addCharacter(' ')
+		
+		while k != 2*i+1:
+#			toFillBB += character
+			addCharacter(character)
+			k += 1
+			if k > 2*i+1:
+				break
+			pass
+		
+#		toFillBB += "\n"
+		addCharacter('\n')
+		k = 0
+		pass
+	pass
+
 func fillTriangle():
+	# https://www.programiz.com/cpp-programming/examples/pyramid-pattern
+	"""
+	#include <iostream>
+	using namespace std;
+
+	int main()
+	{
+		int space, rows;
+
+		cout <<"Enter number of rows: ";
+		cin >> rows;
+
+		for(int i = 1, k = 0; i <= rows; ++i, k = 0)
+		{
+			for(space = 1; space <= rows-i; ++space)
+			{
+				cout <<"  ";
+			}
+
+			while(k != 2*i-1)
+			{
+				cout << "* ";
+				++k;
+			}
+			cout << endl;
+		}    
+		return 0;
+	}
+	"""
+	# number
+	#	        1
+	#	      2 3 2
+	#	    3 4 5 4 3
+	#	  4 5 6 7 6 5 4
+	#	5 6 7 8 9 8 7 6 5
+	"""
+	#include <iostream>
+	using namespace std;
+
+	int main()
+	{
+		int rows, count = 0, count1 = 0, k = 0;
+
+		cout << "Enter number of rows: ";
+		cin >> rows;
+
+		for(int i = 1; i <= rows; ++i)
+		{
+			for(int space = 1; space <= rows-i; ++space)
+			{
+				cout << "  ";
+				++count;
+			}
+
+			while(k != 2*i-1)
+			{
+				if (count <= rows-1)
+				{
+					cout << i+k << " ";
+					++count;
+				}
+				else
+				{
+					++count1;
+					cout << i+k-2*count1 << " ";
+				}
+				++k;
+			}
+			count1 = count = k = 0;
+
+			cout << endl;
+		}
+		return 0;
+	}
+	"""
+	#row uses sizeInt[1]
+	
+#	var k = 0
+#	for i in sizeInt[1]:
+#		for j in sizeInt[1]-i:
+##			toFillBB += " "
+#			addCharacter(' ')
+#
+#		while k != 2*i+1:
+##			toFillBB += character
+#			addCharacter(character)
+#			k += 1
+#			if k > 2*i+1:
+#				break
+#			pass
+#
+##		toFillBB += "\n"
+#		addCharacter('\n')
+#		k = 0
+#		pass
+	arguTriangle(sizeInt[1])
+	pass
+
+func arguTriangleInvert(sizing:int, bringFlipSpaceSpecial:bool = false):
+	var flipCount = sizing
+#	for i in sizing
+#	while(flipCount >=1):
+	if bringFlipSpaceSpecial:
+		addCharacter(' ')
+	for i in range(sizing,0,-1):
+		var space = 0
+		for j in range(0,sizing-i):
+#		while !(space < sizing-i):
+			addCharacter(' ')
+			space += 1
+			
+#			if space < sizing-i:
+#				break
+			pass
+		
+		var jj = i
+		while jj != (2*i-1):
+			addCharacter(character)
+			jj+=1
+			
+#			if jj <= ((2*i)-1):
+#				break
+			pass
+		
+		var jjj = 0
+		for j in i:
+#		while !(jjj < flipCount-1):
+			addCharacter(character)
+			jjj += 1
+		
+		addCharacter('\n' + (' ' if bringFlipSpaceSpecial else ''))
+		
+		flipCount -= 1
+		pass
+	pass
+
+func fillTriangleInverted():
+	# https://www.programiz.com/cpp-programming/examples/pyramid-pattern
+	"""
+	#include <iostream>
+	using namespace std;
+
+	int main()
+	{
+		int rows;
+
+		cout << "Enter number of rows: ";
+		cin >> rows;
+
+		for(int i = rows; i >= 1; --i)
+		{
+			for(int space = 0; space < rows-i; ++space)
+				cout << "  ";
+
+			for(int j = i; j <= 2*i-1; ++j)
+				cout << "* ";
+
+			for(int j = 0; j < i-1; ++j)
+				cout << "* ";
+
+			cout << endl;
+		}
+
+		return 0;
+	}
+	"""
+	#rows uses sizeInt[1]
+	
+#	var flipCount = sizeInt[1]
+##	for i in sizeInt[1]:
+##	while(flipCount >=1):
+#	for i in range(sizeInt[1],0,-1):
+#		var space = 0
+#		for j in range(0,sizeInt[1]-i):
+##		while !(space < sizeInt[1]-i):
+#			addCharacter(' ')
+#			space += 1
+#
+##			if space < sizeInt[1]-i:
+##				break
+#			pass
+#
+#		var jj = i
+#		while jj != (2*i-1):
+#			addCharacter(character)
+#			jj+=1
+#
+##			if jj <= ((2*i)-1):
+##				break
+#			pass
+#
+#		var jjj = 0
+#		for j in i:
+##		while !(jjj < flipCount-1):
+#			addCharacter(character)
+#			jjj += 1
+#
+#		addCharacter('\n')
+#
+#		flipCount -= 1
+#		pass
+	arguTriangleInvert(sizeInt[1])
+	pass
+
+func fillTopRightCorner():
+	var flipCount = sizeInt[1]
+	for i in sizeInt[1]:
+		for j in sizeInt[1]-flipCount:
+			addCharacter(' ')
+			pass
+		
+		var jj = flipCount
+		while !(jj<= (2*flipCount-1)):
+			addCharacter(character)
+			jj+=1
+			pass
+		
+		for j in flipCount-1:
+			addCharacter(character)
+		
+		addCharacter('\n')
+		
+		flipCount -= 1
+		pass
+	pass
+	pass
+
+func fillAccidentalSpotlight():
+	var flipCount = sizeInt[1]
+	for i in sizeInt[1]:
+		for j in flipCount-1:
+			addCharacter(' ')
+			pass
+		
+		var jj = flipCount
+		while !(jj<= (2*flipCount-1)):
+			addCharacter(character)
+			jj+=1
+			pass
+		
+		for j in flipCount-1:
+			addCharacter(character)
+		
+		addCharacter('\n')
+		
+		flipCount -= 1
+		pass
+	pass
+	pass
+
+func fillAccidentMonolith():
+	var flipCount = sizeInt[1]
+	for i in sizeInt[1]:
+		for j in sizeInt[1]:
+			addCharacter(' ')
+			pass
+		
+		var jj = flipCount
+		while !(jj< 2*flipCount+1):
+			addCharacter(character)
+			jj+=1
+			pass
+		
+		for j in flipCount-1:
+			addCharacter(character)
+		
+		addCharacter('\n')
+		
+		--flipCount
+		pass
+	pass
+
+func fillLozenge():
+	# Just have 2 triangle! the rightside up & upside down.
+	# upside down minus one to merge with bottom feet of rightside up
+	var divide = sizeInt[1]
+	
+	arguTriangle(divide)
+	arguTriangleInvert(divide, true)
 	pass
 
 func fillBottomLeftCorner():
@@ -174,9 +488,9 @@ func fillBottomLeftCorner():
 	
 	for i in sizeInt[1]:
 		for j in i:
-			toFillBB += character
+			addCharacter(character)
 			pass
-		toFillBB += "\n"
+		addCharacter('\n')
 		pass
 	
 	pass
@@ -238,9 +552,9 @@ func fillTopLeftCorner():
 	var flipCount:int = sizeInt[1] # not sizeInt[0]
 	for i in sizeInt[1]:
 		for j in flipCount:
-			toFillBB += character
+			addCharacter(character)
 			pass
-		toFillBB += "\n"
+		addCharacter('\n')
 		flipCount -= 1
 		pass
 	pass
@@ -294,20 +608,23 @@ func fillX():
 			var end_pos:int = (sizeInt[1] - m) - 1 # the position of the 2nd asterisk on the line
 			
 			if (asterisk_pos == m || asterisk_pos == end_pos):
-				toFillBB += character
+#				toFillBB += character
+				addCharacter(character)
 			else:
 				toFillBB += " "
+				addCharacter(" ")
 			pass
 		
 		# print a new line character
-		toFillBB += "\n"
+#		toFillBB += "\n"
+		addCharacter('\n')
 		
 		"""
 		when the middle of x_size is reached, 
 		it's time to decrease the position of the asterisk!
 		"""
 		asterisk_pos += inc
-		if (asterisk_pos > (sizeInt[0]/2)-1):
+		if (asterisk_pos > (sizeInt[1]/2)-1):
 			inc *= -1
 		pass
 	
@@ -327,13 +644,13 @@ func fillHelix():
 			var end_pos:int = (sizeInt[1] - m) - 1 # the position of the 2nd asterisk on the line
 			
 			if (asterisk_pos == m || asterisk_pos == end_pos):
-				toFillBB += character
+				addCharacter(character)
 			else:
-				toFillBB += " "
+				addCharacter(' ')
 			pass
 		
 		# print a new line character
-		toFillBB += "\n"
+		addCharacter('\n')
 		
 		"""
 		when the middle of x_size is reached, 
@@ -344,7 +661,6 @@ func fillHelix():
 			inc *= -1
 		pass
 	
-	pass
 	pass
 
 """
@@ -402,4 +718,13 @@ func _on_QuitButton_pressed() -> void:
 		pass
 	else:
 		get_tree().quit(0)
+	pass # Replace with function body.
+
+func _on_CopyButton_pressed() -> void:
+	if $"%Result".visible:
+		OS.set_clipboard($"%TextToCopy".text)
+		pass
+	elif $"%Source Codes".visible:
+		OS.set_clipboard($"UIBox/Contains/TabContainer/Source Codes/SourceCodeSelfFiller/SourceText".text)
+		pass
 	pass # Replace with function body.
