@@ -33,6 +33,13 @@ func clearFillBB()->void:
 	toFillBB = ''
 	$"%TextToCopy".bbcode_text = toFillBB
 
+func resetAllToDefault():
+	$"%SingleCharOption".resetToDefault()
+	$"%WidthOption".resetToDefault()
+	$"%HeightOption".resetToDefault()
+	$"%ShapeOption".resetToDefault()
+	pass
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:
 #	pass
@@ -60,9 +67,9 @@ func _on_SingleCharOption_hasChangedText(intoSay:String) -> void:
 
 func _on_HeightOption_hasChangedNumber(newNum:int) -> void:
 #	print(newNum)
-	size.y = newNum
-	sizeInt[1] = newNum
-	refreshLook()
+#	size.y = newNum
+#	sizeInt[1] = newNum
+#	refreshLook()
 	pass # Replace with function body.
 
 
@@ -73,9 +80,9 @@ func _on_ShapeOption_hasChangedSelection(intoThe:int) -> void:
 
 
 func _on_WidthOption_hasChangedNumber(newNum:int) -> void:
-	size.x = newNum
-	sizeInt[0] = newNum
-	refreshLook()
+#	size.x = newNum
+#	sizeInt[0] = newNum
+#	refreshLook()
 	pass # Replace with function body.
 
 # somehow not working!!!
@@ -90,4 +97,17 @@ func _on_WidthOption_hasChanged() -> void:
 	size.x = $"%WidthOption".value
 	sizeInt[0] = $"%WidthOption".value
 	refreshLook()
+	pass # Replace with function body.
+
+func _on_ResetAllButton_pressed() -> void:
+	resetAllToDefault()
+	pass # Replace with function body.
+
+
+func _on_QuitButton_pressed() -> void:
+	if Engine.has_singleton('Singletoner'):
+		# Singletoner call change dvd
+		pass
+	else:
+		get_tree().quit(0)
 	pass # Replace with function body.
