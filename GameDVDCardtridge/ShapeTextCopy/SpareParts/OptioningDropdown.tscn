@@ -20,9 +20,9 @@ margin_bottom = 123.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 1 )
-text = "ﱢ Square"
+text = "ﱢ Rectangle"
 align = 2
-items = [ "ﱢ Square", null, false, 0, null, "卑 Triangle", null, false, 1, null, " Lozenge", null, false, 2, null, " Corner", null, false, 3, null, " Back Corner", null, false, 4, null, " Flip Corner", null, false, 5, null, " Flip Back Corner", null, false, 6, null, " Elipse", null, false, 7, null ]
+items = [ "ﱢ Rectangle", null, false, 0, null, "卑 Triangle", null, false, 1, null, " Lozenge", null, false, 2, null, " Bottom Left Corner", null, false, 3, null, " Bottom Right Corner", null, false, 4, null, " Top Left Corner", null, false, 5, null, " Top Right Corner", null, false, 6, null, " Elipse", null, false, 7, null, " Cross", null, false, 8, null, " DNA Helix", null, false, 9, null, " Invert Triangle", null, false, 10, null ]
 selected = 0
 
 [connection signal="item_selected" from="OptionButton" to="." method="_on_OptionButton_item_selected"]
