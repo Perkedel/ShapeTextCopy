@@ -15,6 +15,8 @@ func _ready() -> void:
 #func _process(delta: float) -> void:
 #	pass
 
+func resetToDefault():
+	pressed = defaultStatus
 
 func _on_OptionCheckButton_toggled(button_pressed: bool) -> void:
 	if button_pressed:

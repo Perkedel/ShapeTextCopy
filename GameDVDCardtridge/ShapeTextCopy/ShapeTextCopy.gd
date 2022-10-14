@@ -5,8 +5,12 @@ by JOELwindows7
 Perkedel Technologies
 CC4.0-BY-SA
 
+visit source code!
+https://github.com/Perkedel/ShapeTextCopy
+
 misc credit:
 	- https://favicon.io/ generate ico file
+	- https://nerdfonts.com Fonts with all famous icons yey! 
 """
 
 extends Node
@@ -88,6 +92,7 @@ func resetAllToDefault():
 	$"%WidthOption".resetToDefault()
 	$"%HeightOption".resetToDefault()
 	$"%ShapeOption".resetToDefault()
+	$"%HollowCheckButton".resetToDefault()
 	pass
 
 func selfFillThisSource()->void:
