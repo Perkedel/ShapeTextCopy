@@ -12,8 +12,9 @@ config_version=4
 
 config/name="ShapeTextCopy"
 run/main_scene="res://GameDVDCardtridge/ShapeTextCopy/ShapeTextCopy.tscn"
+boot_splash/image="res://GameDVDCardtridge/ShapeTextCopy/assets/images/ShapeTextCopyThumb.png"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
-config/icon="res://icon.png"
+config/icon="res://GameDVDCardtridge/ShapeTextCopy/assets/images/ShapeTextCopyIcon.png"
 
 [display]
 

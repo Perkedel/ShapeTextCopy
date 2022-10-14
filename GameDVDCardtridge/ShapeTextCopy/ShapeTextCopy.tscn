@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/ShaperTextCopy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/ShapeTextCopy.gd" type="Script" id=2]
@@ -8,8 +8,10 @@
 [ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptionHeadering.tscn" type="PackedScene" id=6]
 [ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptionCopyrightText.tscn" type="PackedScene" id=7]
 [ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptioningButton.tscn" type="PackedScene" id=8]
-[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/fonts/Baked/Ubuntu-NF.tres" type="DynamicFont" id=9]
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/assets/fonts/Baked/Ubuntu-NF.tres" type="DynamicFont" id=9]
 [ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/SourceCodeSelfFiller.tscn" type="PackedScene" id=10]
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/assets/images/ShapeTextCopyIcon.png" type="Texture" id=11]
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptionCheckButton.tscn" type="PackedScene" id=12]
 
 [node name="ShapeTextCopy" type="Node"]
 script = ExtResource( 2 )
@@ -83,6 +85,7 @@ anchor_right = 0.0
 margin_right = 1040.0
 margin_bottom = 82.0
 title = "Shape Copy"
+icon = ExtResource( 11 )
 
 [node name="SingleCharOption" parent="UIBox/Contains/Paneling/ScrollContainer/Optioning" instance=ExtResource( 3 )]
 unique_name_in_owner = true
@@ -118,10 +121,18 @@ margin_right = 1040.0
 margin_bottom = 258.0
 labelText = "璉 Shapes"
 
-[node name="ButtonBoth" type="HBoxContainer" parent="UIBox/Contains/Paneling/ScrollContainer/Optioning"]
+[node name="HollowCheckButton" parent="UIBox/Contains/Paneling/ScrollContainer/Optioning" instance=ExtResource( 12 )]
+unique_name_in_owner = true
+anchor_right = 0.0
 margin_top = 262.0
 margin_right = 1040.0
-margin_bottom = 305.0
+margin_bottom = 307.0
+text = "ﴰ Hollow"
+
+[node name="ButtonBoth" type="HBoxContainer" parent="UIBox/Contains/Paneling/ScrollContainer/Optioning"]
+margin_top = 311.0
+margin_right = 1040.0
+margin_bottom = 354.0
 
 [node name="ResetAllButton" parent="UIBox/Contains/Paneling/ScrollContainer/Optioning/ButtonBoth" instance=ExtResource( 8 )]
 unique_name_in_owner = true
@@ -132,6 +143,7 @@ hint_tooltip = "Reset All Parameters"
 text = " "
 
 [node name="Separator" type="Control" parent="UIBox/Contains/Paneling/ScrollContainer/Optioning/ButtonBoth"]
+unique_name_in_owner = true
 margin_left = 87.0
 margin_right = 902.0
 margin_bottom = 43.0
@@ -149,7 +161,7 @@ text = " COPY"
 [node name="CopyrightOption" parent="UIBox/Contains/Paneling/ScrollContainer/Optioning" instance=ExtResource( 7 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 309.0
+margin_top = 358.0
 margin_right = 1040.0
 margin_bottom = 1033.0
 
@@ -159,6 +171,7 @@ margin_right = 1040.0
 margin_bottom = 1080.0
 
 [node name="QuitButton" parent="UIBox/Contains/Paneling/ScrollContainer/Optioning/ButtonFate" instance=ExtResource( 8 )]
+unique_name_in_owner = true
 anchor_right = 0.0
 margin_right = 116.0
 margin_bottom = 43.0
@@ -170,6 +183,7 @@ text = " EXIT"
 [connection signal="hasChanged" from="UIBox/Contains/Paneling/ScrollContainer/Optioning/HeightOption" to="." method="_on_HeightOption_hasChanged"]
 [connection signal="hasChangedNumber" from="UIBox/Contains/Paneling/ScrollContainer/Optioning/HeightOption" to="." method="_on_HeightOption_hasChangedNumber"]
 [connection signal="hasChangedSelection" from="UIBox/Contains/Paneling/ScrollContainer/Optioning/ShapeOption" to="." method="_on_ShapeOption_hasChangedSelection"]
+[connection signal="toggled" from="UIBox/Contains/Paneling/ScrollContainer/Optioning/HollowCheckButton" to="." method="_on_HollowCheckButton_toggled"]
 [connection signal="pressed" from="UIBox/Contains/Paneling/ScrollContainer/Optioning/ButtonBoth/ResetAllButton" to="." method="_on_ResetAllButton_pressed"]
 [connection signal="pressed" from="UIBox/Contains/Paneling/ScrollContainer/Optioning/ButtonBoth/CopyButton" to="." method="_on_CopyButton_pressed"]
 [connection signal="pressed" from="UIBox/Contains/Paneling/ScrollContainer/Optioning/ButtonFate/QuitButton" to="." method="_on_QuitButton_pressed"]

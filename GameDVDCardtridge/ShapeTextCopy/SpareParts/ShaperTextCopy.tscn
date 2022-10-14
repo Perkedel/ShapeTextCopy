@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/fonts/Baked/UbuntuMono-NF.tres" type="DynamicFont" id=1]
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/assets/fonts/Baked/UbuntuMono-NF.tres" type="DynamicFont" id=1]
 
 [node name="TextToCopy" type="RichTextLabel"]
 margin_right = 860.0

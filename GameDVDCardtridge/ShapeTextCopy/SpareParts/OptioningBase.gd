@@ -1,3 +1,4 @@
+tool
 extends HBoxContainer
 
 export(String) var labelText:String = "Option Name" setget set_labelText

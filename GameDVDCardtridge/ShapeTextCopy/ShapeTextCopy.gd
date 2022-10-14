@@ -1,9 +1,21 @@
+# ahre
+"""
+Here code main.
+by JOELwindows7 
+Perkedel Technologies
+CC4.0-BY-SA
+
+misc credit:
+	- https://favicon.io/ generate ico file
+"""
+
 extends Node
 
 export(String) var character:String = "*"
 export(Vector2) var size:Vector2 = Vector2(20,10)
 export(PoolIntArray) var sizeInt:PoolIntArray = [20,10]
 export(bool) var addSpace:bool = false;
+export(bool) var addHollow:bool = false;
 export(int) var chooseSkin = 0 # each shape may have various like a a, 1 2, etc.
 export(int,'Square', 'Triangle') var chooseShape = 0
 enum shapes {Square, Triangle}
@@ -48,8 +60,13 @@ func refreshLook():
 			fillHelix()
 		10:
 			fillTriangleInverted()
+		11:
+			fillLeftTriangle()
+		12:
+			fillRightTriangle()
 		_:
-			fillSquare()
+#			fillSquare()
+			fillErrorNotYetAvailable()
 			pass
 	toFillBB += "[/code]"
 	
@@ -95,7 +112,7 @@ func fillSquare():
 	# https://generalistprogrammer.com/godot/godot-for-loop-tutorial-definitive-guide-with-examples/
 	for n in sizeInt[1]:
 		for m in sizeInt[0]:
-			addCharacter(character)
+			addCharacter(character if !addHollow else (character if (n == 0 || n == sizeInt[1]-1 || m == 0 || m == sizeInt[0]-1) else ' '))
 			pass
 		addCharacter('\n')
 		pass
@@ -103,25 +120,61 @@ func fillSquare():
 	
 	pass
 
-func arguTriangle(sizing:int):
-	var k = 0
-	for i in range(0,sizing+1):
-		for j in sizing-i:
-#			toFillBB += " "
-			addCharacter(' ')
-		
-		while k != 2*i+1:
-#			toFillBB += character
-			addCharacter(character)
-			k += 1
-			if k > 2*i+1:
-				break
+func arguTriangle(sizing:int, bringFlipSpaceSpecial:bool = false, noFeet:bool = false):
+	if bringFlipSpaceSpecial:
+		addCharacter(' ')
+	var k:int = 0
+	var s:int = 0
+	if addHollow:
+		for i in range(0,sizing):
+			# for loop to put space in pyramid
+			s = i
+			for j in sizing-i:
+				addCharacter(' ')
+				s+=1
+				pass
+			
+			# for loop to print star
+			while k < 2*i+1:
+				k += 1
+	#			toFillBB += character
+				addCharacter(character if ((i == sizing-1 if !noFeet else false) || k == 1 || k == 2*i+1) else " ")
+#				addCharacter(character if (i == sizing-1 || k == 1 || k == 2*i+1) else " ")
+#				if i == sizing-1 || k == 1 || k == 2*sizing-1:
+#					addCharacter(character)
+#					pass
+#				else:
+#					addCharacter(' ')
+#					pass
+#				if k > 2*i+1:
+#					break
+				pass
+			
+			# ending line after each row
+			addCharacter('\n' + (' ' if bringFlipSpaceSpecial else ''))
+			k = 0
 			pass
-		
-#		toFillBB += "\n"
-		addCharacter('\n')
-		k = 0
 		pass
+	else:
+		for i in range(0,sizing):
+			for j in sizing-i:
+	#			toFillBB += " "
+				addCharacter(' ')
+			
+			while k < 2*i+1:
+	#			toFillBB += character
+				addCharacter(character)
+				k += 1
+				if k > 2*i+1:
+					break
+				pass
+			
+	#		toFillBB += "\n"
+			addCharacter('\n' + (' ' if bringFlipSpaceSpecial else ''))
+			k = 0
+			pass
+	
+	
 	pass
 
 func fillTriangle():
@@ -200,6 +253,35 @@ func fillTriangle():
 		return 0;
 	}
 	"""
+	# https://www.educba.com/star-patterns-in-c-plus-plus/
+	# Hollow
+	"""
+	#include<iostream>
+	using namespace std;
+	int main()
+	{
+		int r, i, j, s;
+		cout << "Enter number of rows: ";
+		cin >> r;
+		for(i = 1; i <= r; i++)
+		{
+			//for loop to put space in pyramid
+			for (s = i; s < r; s++)
+				cout << " ";
+			//for loop to print star
+			for(j = 1; j <= (2 * r - 1); j++)
+			{
+				if(i == r || j == 1 || j == 2*i - 1)
+					cout << "*";
+				else
+					cout << " ";
+			}
+			//ending line after each row
+			cout << "\n";
+		}
+		return 0;
+	}
+	"""
 	#row uses sizeInt[1]
 	
 #	var k = 0
@@ -223,7 +305,7 @@ func fillTriangle():
 	arguTriangle(sizeInt[1])
 	pass
 
-func arguTriangleInvert(sizing:int, bringFlipSpaceSpecial:bool = false):
+func arguTriangleInvert(sizing:int, bringFlipSpaceSpecial:bool = false, noFeet:bool = false):
 	var flipCount = sizing
 #	for i in sizing
 #	while(flipCount >=1):
@@ -240,20 +322,35 @@ func arguTriangleInvert(sizing:int, bringFlipSpaceSpecial:bool = false):
 #				break
 			pass
 		
-		var jj = i
-		while jj != (2*i-1):
-			addCharacter(character)
-			jj+=1
-			
-#			if jj <= ((2*i)-1):
-#				break
+		# separaton
+		if addHollow:
+			# for loop to print star in pyramid
+			var jj = 0
+			while jj < 2 * sizing -1 :
+				jj+=1
+				addCharacter(character if((i == sizing if !noFeet else false) || jj == 1 || jj == 2*i-1) else " ")
+#				if i == sizing || jj == 1 || jj == 2*i - 1:
+#					addCharacter(character)
+#				else:
+#					addCharacter(' ')
+				
 			pass
-		
-		var jjj = 0
-		for j in i:
-#		while !(jjj < flipCount-1):
-			addCharacter(character)
-			jjj += 1
+		else:
+			var jj = i
+			while jj < (2*i-1):
+	#			addCharacter(character if !addHollow else (character if (i == sizing || jj == 1 || jj == 2*i - 1) else " "))
+				addCharacter(character)
+				jj+=1
+				
+	#			if jj <= ((2*i)-1):
+	#				break
+				pass
+			
+			var jjj = 0
+			for j in i:
+	#		while !(jjj < flipCount-1):
+				addCharacter(character)
+				jjj += 1
 		
 		addCharacter('\n' + (' ' if bringFlipSpaceSpecial else ''))
 		
@@ -288,6 +385,34 @@ func fillTriangleInverted():
 			cout << endl;
 		}
 
+		return 0;
+	}
+	"""
+	# https://www.educba.com/star-patterns-in-c-plus-plus/
+	# Hollow
+	"""
+	#include<iostream>
+	using namespace std;
+	int main()
+	{
+		int r, i, j, s;
+		cout << "Enter number of rows: ";
+		cin >> r;
+		for(i = r; i >= 1; i--)
+		{
+			//for loop to put space in pyramid
+			for (s = i; s < r; s++)
+				cout << " ";
+			//for loop to print star in pyramid
+			for(j = 1; j <= 2 * i - 1; j++)
+			{
+				if(i == r || j == 1 || j == 2*i - 1)
+					cout << "*";
+				else
+					cout << " ";
+			}
+			cout << "\n";
+		}
 		return 0;
 	}
 	"""
@@ -329,7 +454,7 @@ func fillTriangleInverted():
 	arguTriangleInvert(sizeInt[1])
 	pass
 
-func fillTopRightCorner():
+func fillTopRightCorner(noFeet:bool = false):
 #	var flipCount = sizeInt[1]
 #	for i in sizeInt[1]:
 #		for j in sizeInt[1]-flipCount:
@@ -408,16 +533,16 @@ func fillTopRightCorner():
 #				break
 			pass
 		
-		# resetting k because we want to run k from
-		# beginning.
-		k = 0;
+		
 		while j < i: 
-			addCharacter(character)
+			addCharacter(character if !addHollow else (character if ((i == n if !noFeet else false) || j == i-1 || j == 0) else ' '))
 			j+=1
 #			if j < i:
 #				break
 		
-	   
+		# resetting k because we want to run k from
+		# beginning.
+		k = 0;
 		# resetting k so as it can start from 0.
 		j = 0
 		i-=1
@@ -476,11 +601,11 @@ func fillLozenge():
 	# upside down minus one to merge with bottom feet of rightside up
 	var divide = sizeInt[1]
 	
-	arguTriangle(divide)
-	arguTriangleInvert(divide, true)
+	arguTriangle(divide, false, true)
+	arguTriangleInvert(divide, true, true)
 	pass
 
-func fillBottomLeftCorner():
+func fillBottomLeftCorner(noFeet:bool = false):
 	# https://www.programiz.com/cpp-programming/examples/pyramid-pattern
 	"""
 	#include <iostream>
@@ -563,14 +688,14 @@ func fillBottomLeftCorner():
 	
 	for i in range(0,sizeInt[1]):
 		for j in range(0,i+1):
-			addCharacter(character)
+			addCharacter(character if !addHollow else (character if (j == 0 || j == i || (i == sizeInt[1]-1 if !noFeet else false)) else ' '))
 			pass
 		addCharacter('\n')
 		pass
 	
 	pass
 
-func fillBottomRightCorner():
+func fillBottomRightCorner(noFeet:bool = false):
 	# https://www.geeksforgeeks.org/programs-printing-pyramid-patterns-c/
 	"""
 	// C++ code to demonstrate star pattern
@@ -606,7 +731,7 @@ func fillBottomRightCorner():
 	for i in range(sizeInt[1],0,-1):
 		for j in range(0,sizeInt[1]):
 			if (j>=i-1):
-				addCharacter(character)
+				addCharacter(character if !addHollow else (character if (j == size[1]-1 || j == i-1 || (i == 1 if !noFeet else false)) else ' '))
 			else:
 				addCharacter(' ')
 			pass
@@ -614,7 +739,7 @@ func fillBottomRightCorner():
 		pass
 	pass
 
-func fillTopLeftCorner():
+func fillTopLeftCorner(noFeet:bool = false):
 	# https://www.programiz.com/cpp-programming/examples/pyramid-pattern
 	"""
 	#include <iostream>
@@ -671,7 +796,7 @@ func fillTopLeftCorner():
 	var flipCount:int = sizeInt[1] # not sizeInt[0]
 	for i in sizeInt[1]:
 		for j in flipCount:
-			addCharacter(character)
+			addCharacter(character if !addHollow else (character if (j == 0 || j == flipCount-1 || (i == 0 if !noFeet else false)) else ' '))
 			pass
 		addCharacter('\n')
 		flipCount -= 1
@@ -781,6 +906,19 @@ func fillHelix():
 		pass
 	
 	pass
+
+func fillLeftTriangle():
+	fillBottomRightCorner(addHollow)
+	fillTopRightCorner(addHollow)
+	pass
+
+func fillRightTriangle():
+	fillBottomLeftCorner(addHollow)
+	fillTopLeftCorner(addHollow)
+	pass
+
+func fillErrorNotYetAvailable():
+	addCharacter('WERROR 404: Shape not available yet!\nPls contribute!!')
 
 # more misc codes
 """
@@ -918,4 +1056,9 @@ func _on_CopyButton_pressed() -> void:
 	elif $"%Source Codes".visible:
 		OS.set_clipboard($"UIBox/Contains/TabContainer/Source Codes/SourceCodeSelfFiller/SourceText".text)
 		pass
+	pass # Replace with function body.
+
+func _on_HollowCheckButton_toggled(button_pressed: bool) -> void:
+	addHollow = button_pressed
+	refreshLook()
 	pass # Replace with function body.

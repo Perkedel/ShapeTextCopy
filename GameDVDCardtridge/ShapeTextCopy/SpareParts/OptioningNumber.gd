@@ -1,3 +1,4 @@
+tool
 extends "res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptioningBase.gd"
 
 export(int) var value:int = 10 setget set_value

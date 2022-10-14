@@ -1,7 +1,8 @@
+tool
 extends HBoxContainer
 
 export(String) var title:String = "Hello World" setget set_title
-export(Texture) var icon:Texture = preload("res://icon.png")
+export(Texture) var icon:Texture = preload("res://icon.png") setget set_icon
 # Declare member variables here. Examples:
 # var a: int = 2
 # var b: String = "text"
@@ -18,6 +19,7 @@ func set_title(into:String)->String:
 	return title
 
 func set_icon(into:Texture):
+	icon = into
 	$Icon.texture = into
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

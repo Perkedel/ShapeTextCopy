@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/fonts/Baked/Ubuntu-NF.tres" type="DynamicFont" id=1]
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/assets/fonts/Baked/Ubuntu-NF.tres" type="DynamicFont" id=1]
 [ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptionCheckButton.gd" type="Script" id=2]
 
 [node name="OptionCheckButton" type="CheckButton"]

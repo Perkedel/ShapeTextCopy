@@ -1,3 +1,4 @@
+tool
 extends "res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptioningBase.gd"
 
 #export(String) var labelText:String = "Option Name" setget set_labelText

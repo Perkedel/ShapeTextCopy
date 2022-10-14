@@ -2,7 +2,7 @@
 
 [ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptioningLabel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptioningTextInput.gd" type="Script" id=2]
-[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/fonts/Baked/UbuntuMono-NF.tres" type="DynamicFont" id=3]
+[ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/assets/fonts/Baked/UbuntuMono-NF.tres" type="DynamicFont" id=3]
 [ext_resource path="res://GameDVDCardtridge/ShapeTextCopy/SpareParts/OptioningButton.tscn" type="PackedScene" id=4]
 
 [node name="OptioningTextInput" type="HBoxContainer"]
